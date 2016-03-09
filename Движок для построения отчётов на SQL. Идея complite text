@@ -1,0 +1,232 @@
+Движок для построения отчётов на SQL. Идея из песочницы 
+Проектирование и рефакторинг*, Кодобред*, ERP-системы*
+Введение
+
+Статья написана с точки зрения программиста из техподдержки ERP системы.
+
+Выполняя очередное тестовое задание, по очередной вакансии, мне в голову пришла очередная гениальная идея. 
+Почему бы не отдать пользователю редактирование формул для вычисления колонок отчёта? Получиться тот же самый Excel к которому все привыкли, только синтаксис — SQL. 
+
+И конечно за 30 лет развития ERP систем это уже конечно где то было реализовано. Но их алгоритмы это их тайны, а мне не жалко. я поделюсь идеей. 
+
+Тестовое задание
+
+Есть реляционная база с данными, которые поступают ежедневно. Каждый месяц на основе этих данных строятся отчёты. Необходимо продумать и предложить архитектуру системы построения периодических отчётов. 
+
+Требования к системе:
+
+1) Отчёты можно просмотреть в web интерфейсе, скачать в excel, забрать с веб сервиса в виде JSON (для передачи во внешнюю систему).
+2) Отчёты строятся для различных клиентов. Каждый клиент хочет отчёт отличный от типового: своя шапка и подвал, отображаемые столбцы, порядок столбцов, дополнительные вычисляемые столбцы.
+3) Возможность сохранять отчёты. Исходные данные изменяются, а сохранённый отчёт остаётся неизменным.
+4) Редактирование отчёта(исходных данных) на лету в web интерфейсе.
+
+Результатом должна быть ER (Entity-Relationship) диаграмма. Текстовое описание решения.
+
+Идея
+
+Что такое обычный отчёт? это распечатанная таблица исходных данных к которой добавлено несколько колонок с вычисленными значениями, либо подведён итог по исходным данным.
+
+Что пользователи хотят от программистов? изменить логику вычислений, если это касается логики отбора исходных данных, то с этим справиться только программист, потому что надо менять или представление на котором строиться отчёт, или логику хранимой процедуры, а если это только формулы по которым производятся вычисления, то эту работу можно отдать на откуп пользователям. Что предлагается?
+
+Научить пользователя писать SQL формулы, пользователи достаточно умны что бы писать формулы Excel и при желании они освоят и SQL, при чём стандартный набор SQL конечно надо расширить специфичными для предметной области функциями.
+
+Если функции написаны на SQL, то мы можем их подставить в SELECT, который затем следует выполнить как динамический запрос. 
+Такая возможность есть в T-SQL и PL/SQL.
+
+Эскизный проект реализации
+
+Основные сущности
+
+Формула
+Колонка
+Раздел — шапка или подвал отчёта, или что угодно ещё не являющееся колонкой, область печатной формы которая существует в единственном экземпляре.
+Экземпляр — сформированный отчёт.
+Клиент — по тестовому заданию которое я выполнял, у каждого клиента свой набор колонок, в общем виде consumer_id — это отдельный отчёт, который строиться на своих данных по своим правилам.
+
+Формулы
+
+Формулы для вычисления полей будут храниться в таблице formulas, DDL:
+
+CREATE TABLE formulas (
+  id INT NOT NULL
+,code NCHAR(50) NOT NULL
+,formula NVARCHAR(MAX) NOT NULL
+,CONSTRAINT PK_formulas PRIMARY KEY CLUSTERED (id)
+,CONSTRAINT UK_formulas_code UNIQUE (code)
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+
+У каждой формулы своё уникальное кодовое обозначение — поле code; formula — SQL выражение для вычисления значения.
+
+Текст формулы будет подставлен во фразу “SELECT”, которая будет выполнена динамически, поэтому в формуле можно использовать параметры ( ":PARAM1") и при динамическом выполнении SQL кода надо значения этих параметров подставить. Аналогичным образом можно формировать фразу “FROM”, “WHERE” и другие части SQL предложения.
+
+При вычислении колонки по формуле могут потребоваться дополнительные параметры которых нет в исходных данных, для подстановки таких параметров в формуле следует указать “посадочное место” (placeholder) — текст который надо заменить на значение параметра.
+
+Для этого к записи таблицы formula можно «прицепить» запись из таблицы formula_parameters, DDL:
+
+CREATE TABLE formula_parameters (
+  id INT NOT NULL
+,code NCHAR(50) NOT NULL
+,formula_id INT NOT NULL
+,placeholder NVARCHAR(4000) NOT NULL
+,CONSTRAINT PK_formula_parameters PRIMARY KEY CLUSTERED (id)
+,CONSTRAINT UK_formula_parameters_code UNIQUE (formula_id, code)
+,CONSTRAINT UK_formula_parameters_placeholder UNIQUE (formula_id, placeholder)
+,CONSTRAINT FK_formula_parameters_formulas_id FOREIGN KEY (formula_id) REFERENCES dbo.formulas (id)
+) ON [PRIMARY]
+
+code — уникальный код параметра;
+placeholder — текст для замены на значение параметра, в формуле значение должно подставляться через соответствующий CAST или другой способ преобразования типа из строкового в требуемый (учитывая специфику СУБД), в формулу подставляется текст поэтому CAST должен быть из текста в требуемый тип, это надо учитывать при форматировании значения параметра.
+
+Колонки и Разделы
+
+Формулы можно подставлять в колонки и в раздела отчёта. Значение колонки вычисляется по одной формуле. Разделы отчёта это шапка и подвал. Можно добавить и другие типы разделов. Раздел может содержать несколько вычисляемых значений, поэтому одному разделу может быть сопоставлено несколько формул.
+
+Формулы колонок хранятся в таблице columns, DDL:
+
+CREATE TABLE columns (
+  id INT NOT NULL
+,formula_id INT NOT NULL
+,name NVARCHAR(MAX) NOT NULL
+,description NVARCHAR(MAX) NULL
+,CONSTRAINT PK_columns PRIMARY KEY CLUSTERED (id)
+,CONSTRAINT FK_columns_formulas_id FOREIGN KEY (formula_id) REFERENCES dbo.formulas (id)
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+
+name — каждая колонка имеет своё имя, разные колонки могут иметь одинаковые имена.
+description — описание, может быть пустым. 
+
+Формулы разделов — region_formulas, DDL:
+
+CREATE TABLE region_formulas (
+  id INT NOT NULL
+,formula_id INT NOT NULL
+,region_id INT NOT NULL
+,placeholder NVARCHAR(4000) NOT NULL
+,CONSTRAINT PK_region_formulas PRIMARY KEY CLUSTERED (id)
+,CONSTRAINT UK_region_formulas_formula_id_region_id UNIQUE (formula_id, region_id)
+,CONSTRAINT FK_region_formulas_formulas_formula_id FOREIGN KEY (formula_id) REFERENCES dbo.formulas (id)
+,CONSTRAINT FK_region_formulas_regions_id FOREIGN KEY (region_id) REFERENCES dbo.regions (id)
+) ON [PRIMARY]
+
+placeholder — текст который надо будет заменить на вычисленное по формуле значение.
+
+В одном разделе ( region_id ) одна формула ( formula_id ) может вычисляться только один раз, для всех мест где надо вставить её результат должен быть одинаковый placeholder.
+
+Можно конечно дать волю пользователям, это ограничение — это оптимизация «по автопилоту».
+
+Вычисленные значения параметров шаблона раздела надо вставить в шаблон раздела, шаблоны разделов это таблица regions:
+
+CREATE TABLE regions (
+  id INT NOT NULL
+,pattern NVARCHAR(MAX) NOT NULL
+,name NVARCHAR(4000) NOT NULL
+,description NVARCHAR(MAX) NULL
+,CONSTRAINT PK_regions PRIMARY KEY CLUSTERED (id)
+,CONSTRAINT UK_regions_name UNIQUE (name)
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+
+pattern — собственно шаблон раздела
+name — имя раздела
+description — описание, может быть пустым.
+
+При вычислении конкретного текста раздела надо заменить в тексте шаблона pattern ( таблица regions ) подстроки с текстом placeholder ( таблица region_formulas ) на вычисленные значения. 
+
+Расположение разделов в экземляре отчёта задаётся таблицей consumers_report_regions, DDL:
+
+CREATE TABLE consumers_report_regions (
+  consumer_id INT NOT NULL
+,region_id INT NOT NULL
+,region_order INT NOT NULL
+,type_id INT NULL
+,CONSTRAINT PK_consumers_report_base PRIMARY KEY CLUSTERED (consumer_id, region_id)
+,CONSTRAINT UK_consumers_report_regions_region_order UNIQUE (consumer_id, region_order)
+,CONSTRAINT FK_consumers_report_regions_consumer_reference_id FOREIGN KEY (consumer_id) REFERENCES dbo.consumer_reference (id)
+,CONSTRAINT FK_consumers_report_regions_regions_id FOREIGN KEY (region_id) REFERENCES dbo.regions (id)
+,CONSTRAINT FK_consumers_report_regions_report_region_types_id FOREIGN KEY (type_id) REFERENCES dbo.report_region_types (id)
+) ON [PRIMARY]
+
+type_id — ссылка на справочник типов разделов ( шапка / подвал / другое );
+region_order — порядок расположения раздела в отчёте, для одного клиента значение порядка не может повторяться. 
+
+Порядок колонок для каждого клиента уникален и хранится в таблице consumers_report_columns, DDL:
+
+CREATE TABLE consumers_report_columns (
+  column_id INT NOT NULL
+,consumer_id INT NOT NULL
+,column_order INT NOT NULL
+,CONSTRAINT PK_consumers_report_columns PRIMARY KEY CLUSTERED (consumer_id, column_id)
+,CONSTRAINT UK_consumers_report_columns_column_order UNIQUE (consumer_id, column_order, column_id)
+,CONSTRAINT FK_consumers_report_columns_columns_id FOREIGN KEY (column_id) REFERENCES dbo.columns (id)
+,CONSTRAINT FK_consumers_report_columns_consumer_reference_id FOREIGN KEY (consumer_id) REFERENCES dbo.consumer_reference (id)
+) ON [PRIMARY]
+
+column_order — порядковый номер колонки, у одного клиента каждая колонка имеет собственное значение порядка;
+
+Таким образом с помощью таблиц consumers_report_columns и consumers_report_regions задаётся структура отчета, индивидуально для каждого клиента.
+
+Таблицы columns и region_formulas задают правила вычисления для колонок и разделов. Таблица formulas задаёт правила вычисления значений.
+
+Экземпляр
+
+Вычисленный отчёт (экземпляр) сохраняется в структуре таблиц report_instances, report_region_instances, report_cell_instances. Таблица report_instances хранит информацию о сформированных экземплярах отчётов, DDL:
+
+CREATE TABLE report_instances (
+  id INT NOT NULL
+,name NVARCHAR(4000) NOT NULL
+,description NVARCHAR(MAX) NULL
+,state_id INT NOT NULL
+,CONSTRAINT PK_report_instances PRIMARY KEY NONCLUSTERED (id)
+,CONSTRAINT UK_report_instances_name UNIQUE (name)
+,CONSTRAINT FK_report_instances_report_instace_states_reference_id FOREIGN KEY (state_id) REFERENCES dbo.report_instace_states_reference (id)
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+
+name — имя экземпляра, уникальное в таблице;
+description — описание, может быть пустым;
+state_id — ссылка на справочник статусов экземпляра («формируется», «готов», «сохранён», «удалён»).
+
+Сформированные разделы отчёта — report_region_instances, DDL:
+
+CREATE TABLE report_region_instances (
+  instace_id INT NOT NULL
+,consumer_id INT NOT NULL
+,region_id INT NOT NULL
+,value NVARCHAR(MAX) NULL
+,CONSTRAINT PK_report_region_instances PRIMARY KEY CLUSTERED (instace_id, consumer_id, region_id)
+,CONSTRAINT FK_report_region_instances_consumers_report_regions FOREIGN KEY (consumer_id, region_id) REFERENCES dbo.consumers_report_regions (consumer_id, region_id)
+,CONSTRAINT FK_report_region_instances_report_instances_instace_id FOREIGN KEY (instace_id) REFERENCES dbo.report_instances (id)
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+
+value — текст раздела, текст сохраняется уже " склеенным", вычисленные по формулам отдельные значения не сохраняются.
+
+Сформированные значения ячеек табличной части — report_cell_instances, DDL:
+
+CREATE TABLE report_cell_instances (
+  id INT NOT NULL
+,instance_id INT NOT NULL
+,consumer_id INT NOT NULL
+,column_id INT NOT NULL
+,row_order INT NOT NULL
+,value NVARCHAR(MAX) NULL
+,CONSTRAINT PK_report_cell_instances PRIMARY KEY CLUSTERED (id)
+,CONSTRAINT UK_report_cell_instances_column_id_row_order UNIQUE (instance_id, consumer_id, column_id, row_order)
+,CONSTRAINT FK_report_cell_instances FOREIGN KEY (consumer_id, column_id) REFERENCES dbo.consumers_report_columns (consumer_id, column_id)
+,CONSTRAINT FK_report_cell_instances_report_instances_id FOREIGN KEY (instance_id) REFERENCES dbo.report_instances (id)
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+
+row_order — порядок строки, номер строки табличной части;
+value — текст ячейки.
+
+У одного экземпляра отчёта одного клиента одна вычисленная колонка не может иметь несколько одинаковых номеров строки, то есть уникальна координата ячейки — пара (колонка, строка).
+
+В соответствии со структурой отчёта клиента (consumers_report_columns, consumers_report_regions) и вычисленными значениями (report_region_instances, report_cell_instances) можно “склеить” конкретный экземпляр отчёта. 
+
+Таким образом реализован механизм уникальности формул и состава колонок для каждого клиента, реализован механизм сохранения вычисленного отчёта. 
+
+Осталось только разработать хранимую процедуру для вычисления значений по формулам и соответствующего сохранения. 
+
+Буду рад конструктивной критике или ссылкам на классические реализации такой логики.
+
+Ссылки
+
+Движок для построения отчётов на SQL. Черновик решения
+Исходники на GitHub
