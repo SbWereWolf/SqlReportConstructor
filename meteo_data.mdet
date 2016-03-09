@@ -1,0 +1,170 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- Devart (www.devart.com), Master-detail document file -->
+<!-- Modifying this generated file will probably render it invalid -->
+<Document>
+  <Properties>
+    <Type>Master-detail Document</Type>
+    <DatabaseProvider>aa8afe9c-7d62-4564-b477-c12e62e0f440</DatabaseProvider>
+    <ProviderVersion>5.1.178.0</ProviderVersion>
+    <SchemaVersion>1.0</SchemaVersion>
+  </Properties>
+  <Connection Name="FORGE-JITA\SQLEXPRESS2012">
+    <Category>00000000-0000-0000-0000-000000000000</Category>
+    <ConnectionString>Data Source=FORGE-JITA\SQLEXPRESS2012;Integrated Security=True</ConnectionString>
+  </Connection>
+  <Views ShowAdditionalViews="True" IsLayoutActiveAttribute="False" MainViewAttribute="Design" MainViewScale="75">
+    <View Name="Design" Active="True" Visible="True">
+      <Data>
+        <Properties LocationX="-820.000018328429" LocationY="-103.333335643013" Scale="0.24" />
+        <Tables>
+          <Table Name="Linegro.dbo.columns" Type="Table" Left="-240" Top="-10" Width="231.668365478516" Height="138" Collapsed="False" IsMaster="False" FetchLimit="1000">
+            <Fields>
+              <Field Name="id" InSelect="True" SortType="0" />
+              <Field Name="formula_id" InSelect="True" SortType="0" />
+              <Field Name="name" InSelect="True" SortType="0" />
+              <Field Name="description" InSelect="True" SortType="0" />
+            </Fields>
+          </Table>
+          <Table Name="Linegro.dbo.consumer_reference" Type="Table" Left="280" Top="820" Width="173.156669616699" Height="120" Collapsed="False" IsMaster="False" FetchLimit="1000">
+            <Fields>
+              <Field Name="id" InSelect="True" SortType="0" />
+              <Field Name="name" InSelect="True" SortType="0" />
+              <Field Name="description" InSelect="True" SortType="0" />
+            </Fields>
+          </Table>
+          <Table Name="Linegro.dbo.consumers_report_columns" Type="Table" Left="-230" Top="900" Width="300" Height="120" Collapsed="False" IsMaster="False" FetchLimit="1000">
+            <Fields>
+              <Field Name="column_id" InSelect="True" SortType="0" />
+              <Field Name="consumer_id" InSelect="True" SortType="0" />
+              <Field Name="order" InSelect="True" SortType="0" />
+            </Fields>
+          </Table>
+          <Table Name="Linegro.dbo.consumers_report_regions" Type="Table" Left="560" Top="710" Width="280" Height="138" Collapsed="False" IsMaster="False" FetchLimit="1000">
+            <Fields>
+              <Field Name="consumer_id" InSelect="True" SortType="0" />
+              <Field Name="region_id" InSelect="True" SortType="0" />
+              <Field Name="order" InSelect="True" SortType="0" />
+              <Field Name="type_id" InSelect="True" SortType="0" />
+            </Fields>
+          </Table>
+          <Table Name="Linegro.dbo.formula_parameters" Type="Table" Left="-170" Top="340" Width="250" Height="138" Collapsed="False" IsMaster="False" FetchLimit="1000">
+            <Fields>
+              <Field Name="id" InSelect="True" SortType="0" />
+              <Field Name="code" InSelect="True" SortType="0" />
+              <Field Name="formula_id" InSelect="True" SortType="0" />
+              <Field Name="placeholder" InSelect="True" SortType="0" />
+            </Fields>
+          </Table>
+          <Table Name="Linegro.dbo.formulas" Type="Table" Left="270" Top="210" Width="173.156669616699" Height="120" Collapsed="False" IsMaster="True" FetchLimit="1000">
+            <Fields>
+              <Field Name="id" InSelect="True" SortType="0" />
+              <Field Name="code" InSelect="True" SortType="0" />
+              <Field Name="formula" InSelect="True" SortType="0" />
+            </Fields>
+          </Table>
+          <Table Name="Linegro.dbo.meteo_measurements" Type="Table" Left="840" Top="260" Width="290" Height="174" Collapsed="False" IsMaster="False" FetchLimit="1000">
+            <Fields>
+              <Field Name="meteo_station_id" InSelect="True" SortType="0" />
+              <Field Name="read_timestamp" InSelect="True" SortType="0" />
+              <Field Name="temperature" InSelect="True" SortType="0" />
+              <Field Name="pressure" InSelect="True" SortType="0" />
+              <Field Name="wind_direction" InSelect="True" SortType="0" />
+              <Field Name="wind_speed" InSelect="True" SortType="0" />
+            </Fields>
+          </Table>
+          <Table Name="Linegro.dbo.meteo_stations_reference" Type="Table" Left="850" Top="510" Width="350" Height="120" Collapsed="False" IsMaster="False" FetchLimit="1000">
+            <Fields>
+              <Field Name="id" InSelect="True" SortType="0" />
+              <Field Name="name" InSelect="True" SortType="0" />
+              <Field Name="description" InSelect="True" SortType="0" />
+            </Fields>
+          </Table>
+          <Table Name="Linegro.dbo.region_formulas" Type="Table" Left="290" Top="530" Width="220" Height="138" Collapsed="False" IsMaster="False" FetchLimit="1000">
+            <Fields>
+              <Field Name="id" InSelect="True" SortType="0" />
+              <Field Name="formula_id" InSelect="True" SortType="0" />
+              <Field Name="region_id" InSelect="True" SortType="0" />
+              <Field Name="placeholder" InSelect="True" SortType="0" />
+            </Fields>
+          </Table>
+          <Table Name="Linegro.dbo.regions" Type="Table" Left="10" Top="600" Width="173.156669616699" Height="138" Collapsed="False" IsMaster="False" FetchLimit="1000">
+            <Fields>
+              <Field Name="id" InSelect="True" SortType="0" />
+              <Field Name="pattern" InSelect="True" SortType="0" />
+              <Field Name="name" InSelect="True" SortType="0" />
+              <Field Name="description" InSelect="True" SortType="0" />
+            </Fields>
+          </Table>
+          <Table Name="Linegro.dbo.report_cell_instances" Type="Table" Left="270" Top="1090" Width="253.156669616699" Height="174" Collapsed="False" IsMaster="False" FetchLimit="1000">
+            <Fields>
+              <Field Name="id" InSelect="True" SortType="0" />
+              <Field Name="instance_id" InSelect="True" SortType="0" />
+              <Field Name="consumer_id" InSelect="True" SortType="0" />
+              <Field Name="column_id" InSelect="True" SortType="0" />
+              <Field Name="row_order" InSelect="True" SortType="0" />
+              <Field Name="value" InSelect="True" SortType="0" />
+            </Fields>
+          </Table>
+          <Table Name="Linegro.dbo.report_instances" Type="Table" Left="650" Top="1140" Width="243.156669616699" Height="120" Collapsed="False" IsMaster="False" FetchLimit="1000">
+            <Fields>
+              <Field Name="id" InSelect="True" SortType="0" />
+              <Field Name="name" InSelect="True" SortType="0" />
+              <Field Name="description" InSelect="True" SortType="0" />
+            </Fields>
+          </Table>
+          <Table Name="Linegro.dbo.report_region_instances" Type="Table" Left="970" Top="900" Width="310" Height="138" Collapsed="False" IsMaster="False" FetchLimit="1000">
+            <Fields>
+              <Field Name="instace_id" InSelect="True" SortType="0" />
+              <Field Name="consumer_id" InSelect="True" SortType="0" />
+              <Field Name="region_id" InSelect="True" SortType="0" />
+              <Field Name="value" InSelect="True" SortType="0" />
+            </Fields>
+          </Table>
+          <Table Name="Linegro.dbo.report_region_types" Type="Table" Left="550" Top="970" Width="250" Height="120" Collapsed="False" IsMaster="False" FetchLimit="1000">
+            <Fields>
+              <Field Name="id" InSelect="True" SortType="0" />
+              <Field Name="position" InSelect="True" SortType="0" />
+              <Field Name="code" InSelect="True" SortType="0" />
+            </Fields>
+          </Table>
+        </Tables>
+        <Links>
+          <Link OutTable="Linegro.dbo.columns" OutField="id" InTable="Linegro.dbo.consumers_report_columns" InField="column_id" />
+          <Link OutTable="Linegro.dbo.consumer_reference" OutField="id" InTable="Linegro.dbo.consumers_report_columns" InField="consumer_id" />
+          <Link OutTable="Linegro.dbo.consumer_reference" OutField="id" InTable="Linegro.dbo.consumers_report_regions" InField="consumer_id" />
+          <Link OutTable="Linegro.dbo.formulas" OutField="id" InTable="Linegro.dbo.columns" InField="formula_id" />
+          <Link OutTable="Linegro.dbo.formulas" OutField="id" InTable="Linegro.dbo.formula_parameters" InField="formula_id" />
+          <Link OutTable="Linegro.dbo.meteo_stations_reference" OutField="id" InTable="Linegro.dbo.meteo_measurements" InField="meteo_station_id" />
+          <Link OutTable="Linegro.dbo.formulas" OutField="id" InTable="Linegro.dbo.region_formulas" InField="formula_id" />
+          <Link OutTable="Linegro.dbo.regions" OutField="id" InTable="Linegro.dbo.consumers_report_regions" InField="region_id" />
+          <Link OutTable="Linegro.dbo.regions" OutField="id" InTable="Linegro.dbo.region_formulas" InField="region_id" />
+          <Link OutTable="Linegro.dbo.consumers_report_columns" OutField="consumer_id" InTable="Linegro.dbo.report_cell_instances" InField="consumer_id" />
+          <Link OutTable="Linegro.dbo.consumers_report_columns" OutField="column_id" InTable="Linegro.dbo.report_cell_instances" InField="column_id" />
+          <Link OutTable="Linegro.dbo.report_instances" OutField="id" InTable="Linegro.dbo.report_cell_instances" InField="instance_id" />
+          <Link OutTable="Linegro.dbo.report_instances" OutField="id" InTable="Linegro.dbo.report_region_instances" InField="instace_id" />
+          <Link OutTable="Linegro.dbo.consumers_report_regions" OutField="consumer_id" InTable="Linegro.dbo.report_region_instances" InField="consumer_id" />
+          <Link OutTable="Linegro.dbo.consumers_report_regions" OutField="region_id" InTable="Linegro.dbo.report_region_instances" InField="region_id" />
+          <Link OutTable="Linegro.dbo.report_region_types" OutField="id" InTable="Linegro.dbo.consumers_report_regions" InField="type_id" />
+        </Links>
+      </Data>
+    </View>
+    <View Name="Data" Visible="True" />
+  </Views>
+  <Settings>
+    <Options xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:type="PageOptions">
+      <TopLeftMargins>
+        <Width>10 mm</Width>
+        <Height>10 mm</Height>
+      </TopLeftMargins>
+      <BottomRightMargins>
+        <Width>10 mm</Width>
+        <Height>10 mm</Height>
+      </BottomRightMargins>
+      <PaperSize>
+        <Width>210 mm</Width>
+        <Height>297 mm</Height>
+      </PaperSize>
+    </Options>
+    <Options xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:type="PrintOptions" />
+  </Settings>
+</Document>

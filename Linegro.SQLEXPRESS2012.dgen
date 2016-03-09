@@ -1,0 +1,682 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- Devart (www.devart.com), Data-Generator document file -->
+<!-- Modifying this generated file will probably render it invalid -->
+<DataGenDocument xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="4.0">
+  <Settings>
+    <Provider>aa8afe9c-7d62-4564-b477-c12e62e0f440</Provider>
+    <ConnectionString>Data Source=FORGE-JITA\SQLEXPRESS2012;Integrated Security=True</ConnectionString>
+    <CategoryId>00000000-0000-0000-0000-000000000000</CategoryId>
+    <AllowNulls>true</AllowNulls>
+    <IncludeNullsPercent>10</IncludeNullsPercent>
+    <AllowEmptyString>true</AllowEmptyString>
+    <IncludeEmptyStringPercent>10</IncludeEmptyStringPercent>
+    <DatabaseName>Linegro</DatabaseName>
+    <RowsToGenerate>99999</RowsToGenerate>
+    <GenerateUniqueValues>false</GenerateUniqueValues>
+    <TruncateTables>true</TruncateTables>
+    <DistributionMode>Random</DistributionMode>
+    <Seed>1</Seed>
+    <LastSeedValue>0</LastSeedValue>
+  </Settings>
+  <Tables>
+    <Table Name="dbo.consumer_reference">
+      <Checked>false</Checked>
+      <Settings>
+        <RowsToGenerate>99999</RowsToGenerate>
+        <Truncate>true</Truncate>
+      </Settings>
+      <Columns>
+        <Column Name="id">
+          <Checked>false</Checked>
+          <DataType>int</DataType>
+          <Length>4</Length>
+          <Precision>10</Precision>
+        </Column>
+        <Column Name="name">
+          <Checked>false</Checked>
+          <DataType>nvarchar</DataType>
+          <Length>4000</Length>
+        </Column>
+        <Column Name="description">
+          <Checked>false</Checked>
+          <DataType>nvarchar(max)</DataType>
+          <Length>-1</Length>
+        </Column>
+      </Columns>
+    </Table>
+    <Table Name="dbo.formulas">
+      <Checked>false</Checked>
+      <Settings>
+        <RowsToGenerate>99999</RowsToGenerate>
+        <Truncate>true</Truncate>
+      </Settings>
+      <Columns>
+        <Column Name="id">
+          <Checked>false</Checked>
+          <DataType>int</DataType>
+          <Length>4</Length>
+          <Precision>10</Precision>
+        </Column>
+        <Column Name="code">
+          <Checked>false</Checked>
+          <DataType>nchar</DataType>
+          <Length>50</Length>
+        </Column>
+        <Column Name="formula">
+          <Checked>false</Checked>
+          <DataType>nvarchar(max)</DataType>
+          <Length>-1</Length>
+        </Column>
+      </Columns>
+    </Table>
+    <Table Name="dbo.meteo_stations_reference">
+      <Checked>false</Checked>
+      <Settings>
+        <RowsToGenerate>5</RowsToGenerate>
+        <Truncate>true</Truncate>
+      </Settings>
+      <Columns>
+        <Column Name="id">
+          <Checked>false</Checked>
+          <DataType>bigint</DataType>
+          <GeneratorOptions xsi:type="BigIntegerGeneratorOptions">
+            <RowsCountToGenerate>5</RowsCountToGenerate>
+            <AllowNulls>false</AllowNulls>
+            <NullProportion>0</NullProportion>
+            <Unique>true</Unique>
+            <IsAlwaysUnique>false</IsAlwaysUnique>
+            <Increment xsi:type="xsd:long">1</Increment>
+            <ValueDistributionMode>Sequential</ValueDistributionMode>
+            <SeedValue>15</SeedValue>
+            <MinValue>1</MinValue>
+            <MaxValue>9223372036854775807</MaxValue>
+            <UseDefault>false</UseDefault>
+            <DefaultValue />
+          </GeneratorOptions>
+          <GeneratorType>SqlBigIntegerGenerator</GeneratorType>
+          <GeneratorName>ID (sequential)</GeneratorName>
+          <GeneratorDescription>1, 2, 3, 4, ..., 9, 10, 11, 12, ...</GeneratorDescription>
+          <GeneratorCategory>Business</GeneratorCategory>
+          <Length>8</Length>
+          <Precision>19</Precision>
+        </Column>
+        <Column Name="name">
+          <Checked>false</Checked>
+          <DataType>nvarchar</DataType>
+          <Length>4000</Length>
+        </Column>
+        <Column Name="description">
+          <Checked>false</Checked>
+          <DataType>nvarchar(max)</DataType>
+          <Length>-1</Length>
+        </Column>
+      </Columns>
+    </Table>
+    <Table Name="dbo.regions">
+      <Checked>false</Checked>
+      <Settings>
+        <RowsToGenerate>99999</RowsToGenerate>
+        <Truncate>true</Truncate>
+      </Settings>
+      <Columns>
+        <Column Name="id">
+          <Checked>false</Checked>
+          <DataType>int</DataType>
+          <Length>4</Length>
+          <Precision>10</Precision>
+        </Column>
+        <Column Name="pattern">
+          <Checked>false</Checked>
+          <DataType>nvarchar(max)</DataType>
+          <Length>-1</Length>
+        </Column>
+        <Column Name="name">
+          <Checked>false</Checked>
+          <DataType>nvarchar</DataType>
+          <Length>4000</Length>
+        </Column>
+        <Column Name="description">
+          <Checked>false</Checked>
+          <DataType>nvarchar(max)</DataType>
+          <Length>-1</Length>
+        </Column>
+      </Columns>
+    </Table>
+    <Table Name="dbo.report_instace_states_reference">
+      <Checked>false</Checked>
+      <Settings>
+        <RowsToGenerate>99999</RowsToGenerate>
+        <Truncate>true</Truncate>
+      </Settings>
+      <Columns>
+        <Column Name="id">
+          <Checked>false</Checked>
+          <DataType>int</DataType>
+          <Length>4</Length>
+          <Precision>10</Precision>
+        </Column>
+        <Column Name="code">
+          <Checked>false</Checked>
+          <DataType>nchar</DataType>
+          <Length>50</Length>
+        </Column>
+        <Column Name="description">
+          <Checked>false</Checked>
+          <DataType>nvarchar(max)</DataType>
+          <Length>-1</Length>
+        </Column>
+      </Columns>
+    </Table>
+    <Table Name="dbo.report_region_types">
+      <Checked>false</Checked>
+      <Settings>
+        <RowsToGenerate>99999</RowsToGenerate>
+        <Truncate>true</Truncate>
+      </Settings>
+      <Columns>
+        <Column Name="id">
+          <Checked>false</Checked>
+          <DataType>int</DataType>
+          <Length>4</Length>
+          <Precision>10</Precision>
+        </Column>
+        <Column Name="position">
+          <Checked>false</Checked>
+          <DataType>int</DataType>
+          <Length>4</Length>
+          <Precision>10</Precision>
+        </Column>
+        <Column Name="code">
+          <Checked>false</Checked>
+          <DataType>nchar</DataType>
+          <Length>50</Length>
+        </Column>
+      </Columns>
+    </Table>
+    <Table Name="dbo.sysdiagrams">
+      <Checked>false</Checked>
+      <Settings>
+        <RowsToGenerate>99999</RowsToGenerate>
+        <Truncate>true</Truncate>
+      </Settings>
+      <Columns>
+        <Column Name="diagram_id">
+          <Checked>false</Checked>
+          <DataType>int</DataType>
+          <Length>4</Length>
+          <Precision>10</Precision>
+        </Column>
+        <Column Name="name">
+          <Checked>false</Checked>
+          <DataType>nvarchar</DataType>
+          <Length>128</Length>
+        </Column>
+        <Column Name="principal_id">
+          <Checked>false</Checked>
+          <DataType>int</DataType>
+          <Length>4</Length>
+          <Precision>10</Precision>
+        </Column>
+        <Column Name="version">
+          <Checked>false</Checked>
+          <DataType>int</DataType>
+          <Length>4</Length>
+          <Precision>10</Precision>
+        </Column>
+        <Column Name="definition">
+          <Checked>false</Checked>
+          <DataType>varbinary(max)</DataType>
+          <Length>-1</Length>
+        </Column>
+      </Columns>
+    </Table>
+    <Table Name="dbo.columns">
+      <Checked>false</Checked>
+      <Settings>
+        <RowsToGenerate>99999</RowsToGenerate>
+        <Truncate>true</Truncate>
+      </Settings>
+      <Columns>
+        <Column Name="id">
+          <Checked>false</Checked>
+          <DataType>int</DataType>
+          <Length>4</Length>
+          <Precision>10</Precision>
+        </Column>
+        <Column Name="formula_id">
+          <Checked>false</Checked>
+          <DataType>int</DataType>
+          <HasForeignKey>true</HasForeignKey>
+          <Length>4</Length>
+          <Precision>10</Precision>
+        </Column>
+        <Column Name="name">
+          <Checked>false</Checked>
+          <DataType>nvarchar(max)</DataType>
+          <Length>-1</Length>
+        </Column>
+        <Column Name="description">
+          <Checked>false</Checked>
+          <DataType>nvarchar(max)</DataType>
+          <Length>-1</Length>
+        </Column>
+      </Columns>
+    </Table>
+    <Table Name="dbo.consumers_report_regions">
+      <Checked>false</Checked>
+      <Settings>
+        <RowsToGenerate>99999</RowsToGenerate>
+        <Truncate>true</Truncate>
+      </Settings>
+      <Columns>
+        <Column Name="consumer_id">
+          <Checked>false</Checked>
+          <DataType>int</DataType>
+          <HasForeignKey>true</HasForeignKey>
+          <Length>4</Length>
+          <Precision>10</Precision>
+        </Column>
+        <Column Name="region_id">
+          <Checked>false</Checked>
+          <DataType>int</DataType>
+          <HasForeignKey>true</HasForeignKey>
+          <Length>4</Length>
+          <Precision>10</Precision>
+        </Column>
+        <Column Name="region_order">
+          <Checked>false</Checked>
+          <DataType>int</DataType>
+          <Length>4</Length>
+          <Precision>10</Precision>
+        </Column>
+        <Column Name="type_id">
+          <Checked>false</Checked>
+          <DataType>int</DataType>
+          <HasForeignKey>true</HasForeignKey>
+          <Length>4</Length>
+          <Precision>10</Precision>
+        </Column>
+      </Columns>
+    </Table>
+    <Table Name="dbo.formula_parameters">
+      <Checked>false</Checked>
+      <Settings>
+        <RowsToGenerate>99999</RowsToGenerate>
+        <Truncate>true</Truncate>
+      </Settings>
+      <Columns>
+        <Column Name="id">
+          <Checked>false</Checked>
+          <DataType>int</DataType>
+          <Length>4</Length>
+          <Precision>10</Precision>
+        </Column>
+        <Column Name="code">
+          <Checked>false</Checked>
+          <DataType>nchar</DataType>
+          <Length>50</Length>
+        </Column>
+        <Column Name="formula_id">
+          <Checked>false</Checked>
+          <DataType>int</DataType>
+          <HasForeignKey>true</HasForeignKey>
+          <Length>4</Length>
+          <Precision>10</Precision>
+        </Column>
+        <Column Name="placeholder">
+          <Checked>false</Checked>
+          <DataType>nvarchar</DataType>
+          <Length>4000</Length>
+        </Column>
+      </Columns>
+    </Table>
+    <Table Name="dbo.meteo_measurements">
+      <Checked>true</Checked>
+      <Settings>
+        <RowsToGenerate>14999</RowsToGenerate>
+        <Truncate>true</Truncate>
+      </Settings>
+      <Columns>
+        <Column Name="meteo_station_id">
+          <Checked>true</Checked>
+          <DataType>bigint</DataType>
+          <GeneratorOptions xsi:type="ForeignKeyGeneratorOptions">
+            <Unique>true</Unique>
+            <IsAlwaysUnique>false</IsAlwaysUnique>
+            <AllowNulls>false</AllowNulls>
+            <NullProportion>0</NullProportion>
+            <ValueDistributionMode>Random</ValueDistributionMode>
+            <SeedValue>12</SeedValue>
+            <RepeatValues>false</RepeatValues>
+            <FromTimes>1</FromTimes>
+            <ToTimes>10</ToTimes>
+            <ExcludeValues>false</ExcludeValues>
+            <ExclusionValuesPercent>1</ExclusionValuesPercent>
+          </GeneratorOptions>
+          <GeneratorType>ForeignKeyGenerator</GeneratorType>
+          <GeneratorName>Внешний ключ (авто-назначен)</GeneratorName>
+          <GeneratorDescription>ссылается на столбец из родительской таблицы</GeneratorDescription>
+          <HasForeignKey>true</HasForeignKey>
+          <Length>8</Length>
+          <Precision>19</Precision>
+        </Column>
+        <Column Name="read_timestamp">
+          <Checked>true</Checked>
+          <DataType>datetimeoffset</DataType>
+          <GeneratorOptions xsi:type="DateTimeOffsetGeneratorOptions">
+            <RowsCountToGenerate>14999</RowsCountToGenerate>
+            <AllowNulls>false</AllowNulls>
+            <NullProportion>0</NullProportion>
+            <Unique>true</Unique>
+            <IsAlwaysUnique>false</IsAlwaysUnique>
+            <UseDefault>false</UseDefault>
+            <ValueDistributionMode>Seed</ValueDistributionMode>
+            <SeedValue>12</SeedValue>
+            <SequentialValueTicks>900000000000</SequentialValueTicks>
+            <DateTimeRange>MinMaxDate</DateTimeRange>
+            <OffsetFromColumnMinDays>0</OffsetFromColumnMinDays>
+            <OffsetFromColumnMaxDays>7</OffsetFromColumnMaxDays>
+            <OffsetFromColumnMinTime />
+            <OffsetFromColumnMaxTime />
+            <MinDate>2013-01-01T00:00:00+06:00</MinDate>
+            <MaxDate>2013-02-28T17:22:03.65925+06:00</MaxDate>
+            <IsRandomizeDate>true</IsRandomizeDate>
+            <IsRandomizeTime>true</IsRandomizeTime>
+            <MinFraction>0</MinFraction>
+            <MaxFraction>999</MaxFraction>
+            <MaxAllowedFraction>999</MaxAllowedFraction>
+            <IsRandomizeFraction>false</IsRandomizeFraction>
+            <MinTimeZone>0</MinTimeZone>
+            <MaxTimeZone>12</MaxTimeZone>
+            <IsRandomizeZone>false</IsRandomizeZone>
+            <MaxTime>863990000000</MaxTime>
+            <MinTime>0</MinTime>
+            <Scale>7</Scale>
+            <Precision>34</Precision>
+          </GeneratorOptions>
+          <GeneratorType>DateTimeOffsetGenerator</GeneratorType>
+          <GeneratorName>datetimeoffset</GeneratorName>
+          <GeneratorDescription>наполняет датой со временем с учетом часового пояса</GeneratorDescription>
+          <Scale>7</Scale>
+          <Length>10</Length>
+          <Precision>34</Precision>
+        </Column>
+        <Column Name="temperature">
+          <Checked>true</Checked>
+          <DataType>decimal</DataType>
+          <GeneratorOptions xsi:type="DecimalGeneratorOptions">
+            <RowsCountToGenerate>14999</RowsCountToGenerate>
+            <AllowNulls>true</AllowNulls>
+            <NullProportion>10</NullProportion>
+            <Unique>false</Unique>
+            <IsAlwaysUnique>false</IsAlwaysUnique>
+            <Increment xsi:type="xsd:decimal">1</Increment>
+            <ValueDistributionMode>Random</ValueDistributionMode>
+            <SeedValue>12</SeedValue>
+            <MinValue>-70</MinValue>
+            <MaxValue>60</MaxValue>
+            <UseDefault>false</UseDefault>
+            <DefaultValue />
+          </GeneratorOptions>
+          <GeneratorType>SqlDecimalGenerator</GeneratorType>
+          <GeneratorName>decimal</GeneratorName>
+          <GeneratorDescription>наполняет числами с фиксированными точностью и масштабом</GeneratorDescription>
+          <Scale>1</Scale>
+          <Length>5</Length>
+          <Precision>4</Precision>
+        </Column>
+        <Column Name="pressure">
+          <Checked>true</Checked>
+          <DataType>int</DataType>
+          <GeneratorOptions xsi:type="IntegerGeneratorOptions">
+            <RowsCountToGenerate>14999</RowsCountToGenerate>
+            <AllowNulls>true</AllowNulls>
+            <NullProportion>10</NullProportion>
+            <Unique>false</Unique>
+            <IsAlwaysUnique>false</IsAlwaysUnique>
+            <Increment xsi:type="xsd:int">1</Increment>
+            <ValueDistributionMode>Random</ValueDistributionMode>
+            <SeedValue>12</SeedValue>
+            <MinValue>-5</MinValue>
+            <MaxValue>999</MaxValue>
+            <UseDefault>false</UseDefault>
+            <DefaultValue />
+          </GeneratorOptions>
+          <GeneratorType>SqlIntegerGenerator</GeneratorType>
+          <GeneratorName>int</GeneratorName>
+          <GeneratorDescription>наполняет 32-разрядными целыми числами со знаком</GeneratorDescription>
+          <Length>4</Length>
+          <Precision>10</Precision>
+        </Column>
+        <Column Name="wind_direction">
+          <Checked>true</Checked>
+          <DataType>int</DataType>
+          <GeneratorOptions xsi:type="IntegerGeneratorOptions">
+            <RowsCountToGenerate>14999</RowsCountToGenerate>
+            <AllowNulls>true</AllowNulls>
+            <NullProportion>10</NullProportion>
+            <Unique>false</Unique>
+            <IsAlwaysUnique>false</IsAlwaysUnique>
+            <Increment xsi:type="xsd:int">1</Increment>
+            <ValueDistributionMode>Random</ValueDistributionMode>
+            <SeedValue>13</SeedValue>
+            <MinValue>0</MinValue>
+            <MaxValue>15</MaxValue>
+            <UseDefault>false</UseDefault>
+            <DefaultValue />
+          </GeneratorOptions>
+          <GeneratorType>SqlIntegerGenerator</GeneratorType>
+          <GeneratorName>int</GeneratorName>
+          <GeneratorDescription>наполняет 32-разрядными целыми числами со знаком</GeneratorDescription>
+          <Length>4</Length>
+          <Precision>10</Precision>
+        </Column>
+        <Column Name="wind_speed">
+          <Checked>true</Checked>
+          <DataType>int</DataType>
+          <GeneratorOptions xsi:type="IntegerGeneratorOptions">
+            <RowsCountToGenerate>14999</RowsCountToGenerate>
+            <AllowNulls>true</AllowNulls>
+            <NullProportion>10</NullProportion>
+            <Unique>false</Unique>
+            <IsAlwaysUnique>false</IsAlwaysUnique>
+            <Increment xsi:type="xsd:int">1</Increment>
+            <ValueDistributionMode>Random</ValueDistributionMode>
+            <SeedValue>14</SeedValue>
+            <MinValue>0</MinValue>
+            <MaxValue>100</MaxValue>
+            <UseDefault>false</UseDefault>
+            <DefaultValue />
+          </GeneratorOptions>
+          <GeneratorType>SqlIntegerGenerator</GeneratorType>
+          <GeneratorName>int</GeneratorName>
+          <GeneratorDescription>наполняет 32-разрядными целыми числами со знаком</GeneratorDescription>
+          <Length>4</Length>
+          <Precision>10</Precision>
+        </Column>
+      </Columns>
+    </Table>
+    <Table Name="dbo.region_formulas">
+      <Checked>false</Checked>
+      <Settings>
+        <RowsToGenerate>99999</RowsToGenerate>
+        <Truncate>true</Truncate>
+      </Settings>
+      <Columns>
+        <Column Name="id">
+          <Checked>false</Checked>
+          <DataType>int</DataType>
+          <Length>4</Length>
+          <Precision>10</Precision>
+        </Column>
+        <Column Name="formula_id">
+          <Checked>false</Checked>
+          <DataType>int</DataType>
+          <HasForeignKey>true</HasForeignKey>
+          <Length>4</Length>
+          <Precision>10</Precision>
+        </Column>
+        <Column Name="region_id">
+          <Checked>false</Checked>
+          <DataType>int</DataType>
+          <HasForeignKey>true</HasForeignKey>
+          <Length>4</Length>
+          <Precision>10</Precision>
+        </Column>
+        <Column Name="placeholder">
+          <Checked>false</Checked>
+          <DataType>nvarchar</DataType>
+          <Length>4000</Length>
+        </Column>
+      </Columns>
+    </Table>
+    <Table Name="dbo.report_instances">
+      <Checked>false</Checked>
+      <Settings>
+        <RowsToGenerate>99999</RowsToGenerate>
+        <Truncate>true</Truncate>
+      </Settings>
+      <Columns>
+        <Column Name="id">
+          <Checked>false</Checked>
+          <DataType>int</DataType>
+          <Length>4</Length>
+          <Precision>10</Precision>
+        </Column>
+        <Column Name="name">
+          <Checked>false</Checked>
+          <DataType>nvarchar</DataType>
+          <Length>4000</Length>
+        </Column>
+        <Column Name="description">
+          <Checked>false</Checked>
+          <DataType>nvarchar(max)</DataType>
+          <Length>-1</Length>
+        </Column>
+        <Column Name="state_id">
+          <Checked>false</Checked>
+          <DataType>int</DataType>
+          <HasForeignKey>true</HasForeignKey>
+          <Length>4</Length>
+          <Precision>10</Precision>
+        </Column>
+      </Columns>
+    </Table>
+    <Table Name="dbo.consumers_report_columns">
+      <Checked>false</Checked>
+      <Settings>
+        <RowsToGenerate>99999</RowsToGenerate>
+        <Truncate>true</Truncate>
+      </Settings>
+      <Columns>
+        <Column Name="consumer_id">
+          <Checked>false</Checked>
+          <DataType>int</DataType>
+          <HasForeignKey>true</HasForeignKey>
+          <Length>4</Length>
+          <Precision>10</Precision>
+        </Column>
+        <Column Name="column_id">
+          <Checked>false</Checked>
+          <DataType>int</DataType>
+          <HasForeignKey>true</HasForeignKey>
+          <Length>4</Length>
+          <Precision>10</Precision>
+        </Column>
+        <Column Name="column_order">
+          <Checked>false</Checked>
+          <DataType>int</DataType>
+          <Length>4</Length>
+          <Precision>10</Precision>
+        </Column>
+      </Columns>
+    </Table>
+    <Table Name="dbo.report_region_instances">
+      <Checked>false</Checked>
+      <Settings>
+        <RowsToGenerate>99999</RowsToGenerate>
+        <Truncate>true</Truncate>
+      </Settings>
+      <Columns>
+        <Column Name="instace_id">
+          <Checked>false</Checked>
+          <DataType>int</DataType>
+          <HasForeignKey>true</HasForeignKey>
+          <Length>4</Length>
+          <Precision>10</Precision>
+        </Column>
+        <Column Name="consumer_id">
+          <Checked>false</Checked>
+          <DataType>int</DataType>
+          <HasForeignKey>true</HasForeignKey>
+          <Length>4</Length>
+          <Precision>10</Precision>
+        </Column>
+        <Column Name="region_id">
+          <Checked>false</Checked>
+          <DataType>int</DataType>
+          <HasForeignKey>true</HasForeignKey>
+          <Length>4</Length>
+          <Precision>10</Precision>
+        </Column>
+        <Column Name="value">
+          <Checked>false</Checked>
+          <DataType>nvarchar(max)</DataType>
+          <Length>-1</Length>
+        </Column>
+      </Columns>
+    </Table>
+    <Table Name="dbo.report_cell_instances">
+      <Checked>false</Checked>
+      <Settings>
+        <RowsToGenerate>99999</RowsToGenerate>
+        <Truncate>true</Truncate>
+      </Settings>
+      <Columns>
+        <Column Name="id">
+          <Checked>false</Checked>
+          <DataType>int</DataType>
+          <Length>4</Length>
+          <Precision>10</Precision>
+        </Column>
+        <Column Name="instance_id">
+          <Checked>false</Checked>
+          <DataType>int</DataType>
+          <HasForeignKey>true</HasForeignKey>
+          <Length>4</Length>
+          <Precision>10</Precision>
+        </Column>
+        <Column Name="consumer_id">
+          <Checked>false</Checked>
+          <DataType>int</DataType>
+          <HasForeignKey>true</HasForeignKey>
+          <Length>4</Length>
+          <Precision>10</Precision>
+        </Column>
+        <Column Name="column_id">
+          <Checked>false</Checked>
+          <DataType>int</DataType>
+          <HasForeignKey>true</HasForeignKey>
+          <Length>4</Length>
+          <Precision>10</Precision>
+        </Column>
+        <Column Name="row_order">
+          <Checked>false</Checked>
+          <DataType>int</DataType>
+          <Length>4</Length>
+          <Precision>10</Precision>
+        </Column>
+        <Column Name="value">
+          <Checked>false</Checked>
+          <DataType>nvarchar(max)</DataType>
+          <Length>-1</Length>
+        </Column>
+      </Columns>
+    </Table>
+  </Tables>
+  <SynchronizationOptions xsi:type="DataSyncOptionGroup">
+    <SynchronizeType>Editor</SynchronizeType>
+    <SynchronizationFileName>C:\Users\SBBWEREWOLF\Documents\work\test_task\linegro\DataGeneration_20160307-1722.sql</SynchronizationFileName>
+    <BackupPathName>C:\Program Files\Microsoft SQL Server\MSSQL11.SQLEXPRESS2012\MSSQL\Backup</BackupPathName>
+  </SynchronizationOptions>
+</DataGenDocument>
